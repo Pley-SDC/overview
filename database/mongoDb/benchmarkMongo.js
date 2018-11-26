@@ -32,7 +32,7 @@ function timeQuery(queryFunc, ...params) {
       if (result.result) {
         console.log(result.result);
       } else {
-        console.log(result);
+        console.log(JSON.stringify(result));
       }
     });
 }

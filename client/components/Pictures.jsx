@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Modal from 'react-responsive-modal';
 import axios from 'axios';
-import ModalView from './ModalView.jsx';
-import Address from './Address.jsx';
+import ModalView from './ModalView';
+import Address from './Address';
 
 const Wrapper = styled.div`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -133,21 +133,37 @@ class Pictures extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
+    const stateObj = {
       focused: 1,
       show: false,
       currentModalUrl: '',
       currentModalId: 0,
-      images: [],
-      restaurant: {
-        name: '',
+    };
+    if (props) {
+      const { restaurantData } = props;
+      stateObj.images = restaurantData.images.map(imageData => imageData.image);
+      stateObj.restaurant = {
+        address: restaurantData.address,
+        name: restaurantData.name,
+        phone: restaurantData.phone,
+        website: restaurantData.website,
+        googleMap: restaurantData.googleMap,
+        cost: Array(restaurantData.cost).fill('$').join(''),
+      };
+    } else {
+      stateObj.images = [];
+      stateObj.restaurant = {
         address: '',
+        name: '',
         phone: '',
         website: '',
-        cost: '',
         googleMap: '',
-      },
-    };
+        cost: '',
+      };
+    }
+
+    this.state = stateObj;
+
     this.randomStars = Math.floor(Math.random() * Math.floor(9)) + 1;
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -160,9 +176,11 @@ class Pictures extends React.Component {
   componentDidMount() {
     let id = window.location.pathname.slice(1);
     if (!id) id = Math.floor(Math.random() * 10000000 + 1);
-    Pictures.fetchData(id, (data) => {
-      this.parseData(data);
-    });
+    if (!this.props) {
+      Pictures.fetchData(id, (data) => {
+        this.parseData(data);
+      });
+    }
   }
 
   handlePictureEnter(e, num) {
