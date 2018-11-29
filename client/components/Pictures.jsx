@@ -125,7 +125,7 @@ const AddressWrapper = styled.div`
 
 class Pictures extends React.Component {
   static fetchData(id, callback) {
-    axios.get(`http://localhost:9001/overview/restaurants/${id}`)
+    axios.get(`${process.env.OVERVIEW_URL}/overview/restaurants/${id}`)
       .then((response) => {
         callback(response.data);
       });
