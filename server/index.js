@@ -142,13 +142,14 @@ app.get('/overview/restaurants/:restaurantId', (req, res) => {
 
   redisClient.get(`${restaurantId}`, (err, redisResults) => {
     if (err) {
+      console.log('Redis error');
       res.sendStatus(500);
     } else if (redisResults) {
       res.send(redisResults);
     } else {
       Restaurant.findOne({ restaurantId }, (err2, mongoResults) => {
         if (err2) {
-          console.error(err2);
+          console.error('Hit mongoose findOne error');
           res.sendStatus(404);
         } else {
           redisClient.set(restaurantId, JSON.stringify(mongoResults), (err3, response) => {
