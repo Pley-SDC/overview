@@ -1,4 +1,4 @@
-// require('newrelic');
+require('newrelic');
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -12,13 +12,14 @@ const db = require('../database/mongoDb/index.js');
 
 const { Restaurant } = db;
 const PORT = process.env.PORT || 9001;
+const REDIS = process.env.REDIS_URL || '13.57.204.52';
 
 const redisClient = redis.createClient({
-  host: process.env.REDIS_URL || '13.57.204.52',
+  host: REDIS,
   port: process.env.REDIS_PORT || 6379,
 });
 redisClient.on('error', err => console.log('Error', err));
-redisClient.on('connect', () => console.log('connected to redis!'));
+redisClient.on('connect', () => console.log('connected to redis! at', REDIS));
 // bluebird.promisifyAll(redis.RedisClient.prototype);
 // bluebird.promisifyAll(redis.Multi.prototype);
 
