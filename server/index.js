@@ -148,11 +148,11 @@ app.get('/overview/restaurants/:restaurantId', (req, res) => {
     } else {
       Restaurant.findOne({ restaurantId }, (err2, mongoResults) => {
         if (err2) {
-          console.error(err2);
+          console.error(err2.message);
           res.sendStatus(404);
         } else {
           redisClient.set(restaurantId, JSON.stringify(mongoResults), (err3, response) => {
-            if (err3) return console.error(err3);
+            if (err3) return console.error(err3.message);
             return response;
           });
           res.send(mongoResults);
