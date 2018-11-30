@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('../database/mongoDb/index.js');
+const redis = require('redis');
 
 const { Restaurant } = db;
 const PORT = process.env.PORT || 9001;

@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
@@ -31,6 +32,7 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-responsive-modal": "^3.4.0",
+    "redis": "^2.8.0",
     "styled-components": "^4.0.2"
   },
   "devDependencies": {
