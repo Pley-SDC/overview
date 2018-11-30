@@ -1,4 +1,4 @@
-require('newrelic');
+// require('newrelic');
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const redis = require('redis');
-const bluebird = require('bluebird');
+// const bluebird = require('bluebird');
 const db = require('../database/mongoDb/index.js');
 
 const { Restaurant } = db;
@@ -15,12 +15,12 @@ const PORT = process.env.PORT || 9001;
 
 const redisClient = redis.createClient({
   host: process.env.REDIS_URL || '13.57.204.52',
-  port: 6379,
+  port: process.env.REDIS_PORT || 6379,
 });
 redisClient.on('error', err => console.log('Error', err));
 redisClient.on('connect', () => console.log('connected to redis!'));
-bluebird.promisifyAll(redis.RedisClient.prototype);
-bluebird.promisifyAll(redis.Multi.prototype);
+// bluebird.promisifyAll(redis.RedisClient.prototype);
+// bluebird.promisifyAll(redis.Multi.prototype);
 
 const app = express();
 if (process.env.NODE_ENV === 'production') {
@@ -140,17 +140,24 @@ app.delete('/overview/restaurants/:restaurantId/images/:imageId', (req, res) => 
 app.get('/overview/restaurants/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
 
-  redisClient.getAsync(`${restaurantId}`)
-    .then(result => console.log(result))
-    .catch(err => console.log(err));
-
-
-  Restaurant.findOne({ restaurantId }, (err, results) => {
+  redisClient.get(`${restaurantId}`, (err, redisResults) => {
     if (err) {
-      console.error(err);
-      res.sendStatus(404);
+      res.sendStatus(500);
+    } else if (redisResults) {
+      res.send(redisResults);
     } else {
-      res.send(results);
+      Restaurant.findOne({ restaurantId }, (err2, mongoResults) => {
+        if (err2) {
+          console.error(err2);
+          res.sendStatus(404);
+        } else {
+          redisClient.set(restaurantId, JSON.stringify(mongoResults), (err3, response) => {
+            if (err3) return console.error(err3);
+            return response;
+          });
+          res.send(mongoResults);
+        }
+      });
     }
   });
 });
