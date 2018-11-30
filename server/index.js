@@ -6,11 +6,21 @@ const compression = require('compression');
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const db = require('../database/mongoDb/index.js');
 const redis = require('redis');
+const bluebird = require('bluebird');
+const db = require('../database/mongoDb/index.js');
 
 const { Restaurant } = db;
 const PORT = process.env.PORT || 9001;
+
+const redisClient = redis.createClient({
+  host: process.env.REDIS_URL || '13.57.204.52',
+  port: 6379,
+});
+redisClient.on('error', err => console.log('Error', err));
+redisClient.on('connect', () => console.log('connected to redis!'));
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
 
 const app = express();
 if (process.env.NODE_ENV === 'production') {
@@ -129,6 +139,12 @@ app.delete('/overview/restaurants/:restaurantId/images/:imageId', (req, res) => 
 
 app.get('/overview/restaurants/:restaurantId', (req, res) => {
   const { restaurantId } = req.params;
+
+  redisClient.getAsync(`${restaurantId}`)
+    .then(result => console.log(result))
+    .catch(err => console.log(err));
+
+
   Restaurant.findOne({ restaurantId }, (err, results) => {
     if (err) {
       console.error(err);
