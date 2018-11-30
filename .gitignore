@@ -28,7 +28,7 @@ build/
 dist/
 database/seedFiles
 dump.rdb
-# package-lock.json
+package-lock.json
 
 # Client Bundles
 public/bundle.js
