@@ -23,11 +23,12 @@ coverage
 # new relic stuff
 newrelic.js
 
-# Compiled Dirs (http://nodejs.org/api/addons.html)
+# Compiled (http://nodejs.org/api/addons.html)
 build/
 dist/
 database/seedFiles
 dump.rdb
+# package-lock.json
 
 # Client Bundles
 public/bundle.js
