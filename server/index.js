@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const db = require('../database/mongoDb/index.js');
 
 const { Restaurant } = db;
-const PORT = process.env.PORT || 9001;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 if (process.env.NODE_ENV === 'production') {

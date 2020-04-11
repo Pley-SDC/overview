@@ -18,5 +18,4 @@ function initializeMongoConnection() {
   });
 }
 
-initializeMongoConnection();
 exports.initializeMongoConnection = initializeMongoConnection;

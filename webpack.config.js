@@ -10,7 +10,7 @@ module.exports = {
   },
   plugins: [
     new CompressionPlugin(),
-    new Dotenv()
+    new Dotenv(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
