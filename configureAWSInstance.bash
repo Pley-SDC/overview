@@ -20,7 +20,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # install node
-nvm install v6.13
+nvm install lts/carbon
 
 # install server dependencies
 cd overview
