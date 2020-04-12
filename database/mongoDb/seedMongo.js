@@ -28,8 +28,6 @@ const NUMBER_OF_LOOPS = TOTAL_PRIMARY_RECORDS / batchSize;
 
 initializeMongoConnection()
   .then(({ collection }) => {
-    collection.drop();
-
     const insertRestaurantRecords = () => {
       const batch = [];
       for (let i = 0; i < batchSize; i += 1) {
