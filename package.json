@@ -27,7 +27,7 @@
     "mongodb": "^3.1.10",
     "mongoose": "^5.3.13",
     "morgan": "^1.9.1",
-    "newrelic": "^4.11.0",
+    "newrelic": "^4.13.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-responsive-modal": "^3.4.0",
