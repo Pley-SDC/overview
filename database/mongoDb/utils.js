@@ -31,11 +31,12 @@ const asynchronousLoop = (func, numOfLoops, cb, logger = () => {}) => {
 
   async function innerloop() {
     if (currentLoop <= numOfLoops) {
-      logger(currentLoop, numOfLoops);
+      logger(currentLoop - 1, numOfLoops);
       await func();
       currentLoop += 1;
       innerloop();
     } else if (cb) {
+      logger(currentLoop - 1, numOfLoops);
       const endTime = process.hrtime(startTime);
       const totalSeconds = endTime[0];
       cb(totalSeconds);
