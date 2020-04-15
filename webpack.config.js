@@ -1,6 +1,5 @@
 const CompressionPlugin = require('compression-webpack-plugin');
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './client/index.jsx',
@@ -10,7 +9,6 @@ module.exports = {
   },
   plugins: [
     new CompressionPlugin(),
-    new Dotenv(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
