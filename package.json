@@ -11,7 +11,7 @@
     "setup": "node setup.js",
     "start:dev": "nodemon ./server/index.js",
     "build:dev": "webpack -d --watch --mode=development",
-    "start": "NODE_ENV=production node ./server/index.js",
+    "start": "NODE_ENV=production nohup node ./server/index.js &",
     "build": "webpack -p",
     "seed": "nohup node ./database/mongoDb/seedMongo.js 10000000 &",
     "test": "jest"
