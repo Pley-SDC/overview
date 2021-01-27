@@ -13,7 +13,8 @@
     "build:dev": "webpack -d --watch --mode=development",
     "start": "NODE_ENV=production nohup node ./server/index.js &",
     "build": "webpack -p",
-    "seed": "nohup node ./database/mongoDb/seedMongo.js 10000000 &",
+    "seed:instance": "nohup node ./database/mongoDb/seedMongo.js 10000000 &",
+    "seed:local": "node ./database/mongoDb/seedMongo.js 1000000",
     "test": "jest"
   },
   "dependencies": {

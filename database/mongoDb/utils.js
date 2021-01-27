@@ -1,4 +1,18 @@
 const getRandomPositiveIntBelow = max => Math.floor(Math.random() * max) + 1;
+const dead = false;
+const taskComplete = false;
+const giveUp = () => {};
+const tryAgain = () => {};
+
+const func = () => {
+  while (!dead) {
+    if (!taskComplete) {
+      tryAgain();
+      continue;
+    }
+    return giveUp();
+  }
+}
 
 const createIncrementer = (start) => {
   let id = start;

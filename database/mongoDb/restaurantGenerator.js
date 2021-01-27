@@ -4,7 +4,7 @@ const generateImages = require('./imageGenerator');
 
 const MAX_COST_RATING = 5;
 const MAX_GOOGLE_MAP_IDX = 5;
-const RESTAURANT_ID_START = 0;
+const RESTAURANT_ID_START = parseInt(process.argv[3], 10);
 const MAP_IMG_BASE_URL = 'https://s3-us-west-1.amazonaws.com/yump-sf-overview/maps/';
 const restaurantIncrementer = Utils.createIncrementer(RESTAURANT_ID_START);
 
@@ -23,12 +23,12 @@ const generateGoogleMapImg = maxIdx => `${MAP_IMG_BASE_URL}${Utils.getRandomPosi
 const generateRestaurant = () => ({
   restaurantId: restaurantIncrementer(),
   name: generateRestaurantName(),
-  address: generateAddress(),
+  // address: generateAddress(),
   cost: generateCostRating(MAX_COST_RATING),
   phone: generatePhoneNum(),
   website: generateWebsite(),
   googleMap: generateGoogleMapImg(MAX_GOOGLE_MAP_IDX),
-  images: generateImages(),
+  // images: generateImages(),
 });
 
 module.exports = generateRestaurant;

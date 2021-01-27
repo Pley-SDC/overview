@@ -49,6 +49,14 @@ cd overview
 git checkout finding-bottlenecks-demo
 npm install
 
+# TODO: add changes to database configuration to make db listen for external connections
+
 # Run server
 # npm run build
 # npm start
+
+# Still need to manually run the line below:
+# scp -i "SDC.pem" ~/hackreactor/projects/SDC/overview/newrelic.js ec2-user@ec2-3-101-13-52.us-west-1.compute.amazonaws.com:/home/ec2-user/overview
+
+# Also need to run this to allow my server to run on port 80
+# iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000

@@ -9,7 +9,7 @@ if (Number.isNaN(TOTAL_PRIMARY_RECORDS)) {
   throw new Error('Check command line argument. Must provide number of records to insert.');
 }
 
-let batchSize = 1000;
+let batchSize = 5000;
 let logRate = 1e5;
 if (batchSize > TOTAL_PRIMARY_RECORDS) {
   batchSize = TOTAL_PRIMARY_RECORDS;
